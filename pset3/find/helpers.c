@@ -25,11 +25,12 @@ bool search(int value, int values[], int n)
 void sort(int values[], int n)
 {
     int countAr[65537]={[0 ... 65536] = 0};;
-    
+    //check what numbers exists in the array and sets the number position in the countarr+=1
     for(int i=0;i<n;i++){
         countAr[values[i]]+=1;
     }
     int n1=0;
+    //checks what numbers are in the count array and sets them into the values array;
     for(int i=0;i<65537;i++){
         if(countAr[i]>0){
             for(int j=0;j<countAr[i];j++){

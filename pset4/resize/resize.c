@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     // read infile's BITMAPINFOHEADER
     BITMAPINFOHEADER bi;
     fread(&bi, sizeof(BITMAPINFOHEADER), 1, inptr);
+    //creates a clone of the header so the loop still reads over original width/height.
     BITMAPINFOHEADER bio=bi;
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
@@ -56,6 +57,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Unsupported file format.\n");
         return 4;
     }
+    //creates the variables used for repeting a pixel/line or jumping a pixel/line
     int f;
     int jump;
     if(size>=1){
@@ -69,8 +71,9 @@ int main(int argc, char *argv[])
         bi.biWidth /=jump;
         bi.biHeight /=jump;
     }
-
+    //creates the padding for the outfile
     int pad = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    //sets the headers for the new file
     bi.biSizeImage=((sizeof(RGBTRIPLE)*bi.biWidth)+pad)*abs(bi.biHeight);
     bf.bfSize=bi.biSizeImage+sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER);
     
@@ -86,11 +89,11 @@ int main(int argc, char *argv[])
     // iterate over infile's scanlines
     for (int i = 0, biHeight = abs(bio.biHeight/jump); i < biHeight; i++)
     {   
-        //gets the current position fo the pointer
+        //gets the current position for the pointer
         int startofline = ftell(inptr);
         //repeat lines if necessary
         for(int l=0; l<f;l++){
-          // sets the point to read the current position before this loop started
+          // sets the program to read the current position before this loop started
           // so to read the same line as many times as needed
           fseek(inptr,startofline,SEEK_SET);
             // iterate over pixels in scanline
@@ -107,6 +110,7 @@ int main(int argc, char *argv[])
                 for(int k=0;k<f;k++){
                     fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
                 }
+                //jumps (n) pixels if it's making the image smaller
                 for(int lj=1;lj<jump;lj++){
                     fseek(inptr,sizeof(RGBTRIPLE),SEEK_CUR);
                 }
@@ -120,12 +124,11 @@ int main(int argc, char *argv[])
         }
         // skip over padding, if any
         fseek(inptr, padding, SEEK_CUR);
+        //jumps (n) next lines if it's making the image smaller
         for(int lj=1;lj<jump;lj++){
             fseek(inptr,sizeof(RGBTRIPLE)*bio.biWidth,SEEK_CUR);
             fseek(inptr, padding, SEEK_CUR);
         }
-        //jump a line if necessary
-
     }
 
     // close infile

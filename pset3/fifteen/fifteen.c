@@ -202,6 +202,7 @@ bool move(int tile)
 {
     int tile_i=0;
     int tile_j=0;
+    //get the position of the tile
     for(int i=0;i<d;i++){
         for(int j=0;j<d;j++){
             if(board[i][j]==tile){
@@ -211,9 +212,12 @@ bool move(int tile)
                 }
         }
     }
+    //check if blank is in the same line +- 1 or same column +- 1
     if(((tile_i+1==blank_i || tile_i-1==blank_i) && tile_j==blank_j)||((tile_j+1==blank_j || tile_j-1==blank_j)&&tile_i==blank_i)) {
+    //adds the input number into the blank space adds zero to the position of the tile
         board[blank_i][blank_j]=tile;
         board[tile_i][tile_j]=0;
+        //sets the new blank space position
         blank_i=tile_i;
         blank_j=tile_j;
         return true;
@@ -231,6 +235,7 @@ bool won(void)
 {
     int check_value = 1;
     for(int i=0;i<d;i++){
+        //iterates over the board and check if each number is correct returns false at the first incorrect number
         for(int j=0;j<d;j++){
                 if(board[i][j]!=check_value && board[i][j]!=0){
                     return false;
