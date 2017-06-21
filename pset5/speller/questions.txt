@@ -1,0 +1,18 @@
+0.  fictitional biggest word in english, we define the maximum lengh of char to be 45 because of this word.
+1.  returns the resource usage of something in spellers case the calling process which is speller itself.
+2.   16
+3.  because the function expects pointers
+4.  The main part of it consists of a if/else if/else if.
+    It reads every the file char by char testing if char isapha or a ' while it's true it'll add it to the char array 
+called word up and raise the index counter by one, if the inedx counter reaches the maximum value (45 defined by dictionary.h)
+it'll discard that word by simple using a for loop to reach the next non alpha value or the end of the file. If there is 
+a number in the word ie "w0rd" it'll discard that word too by using a loop similar to the one mentioned above but this time
+discarding the word until you find something that's not a number/a letter/end of file. (both loops will set index to zero
+to prepare the program for the next word)
+    Now our program ran throgh all letters and it found something that's not a letter nor a number, that must mean that what
+we've stored in the array word must be an actual word, the program will check if index is more than zero if so it'll add the
+string ending flag \0 to the word and add 1 to the word counter.
+    Inside the same else if it'll check for mispelling and and calculates the usage. If it was mispelled it'll print the word
+and add 1 to the mispelled flag after that's done it'll set index to zero to prepare the program for the next word.
+5.  TODO
+6.  so they can't be changed by a mistake by the programmer.
