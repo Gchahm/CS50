@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted Values
+{% endblock %}
+
+{% block main %}
+<table style="width:100%">
+    <tr>
+        <th>SYMBOL</th>
+        <th>NAME</th>
+        <th>PRICE</th>
+    </tr>
+    <tr>
+        <th>{{ results['symbol'] }}</th>  
+        <th>{{ results['name'] }}</th>
+        <th>{{ results['price'] }}</th>
+
+    </tr>
+</table>
+{% endblock %}

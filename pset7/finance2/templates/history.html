@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted Values
+{% endblock %}
+
+{% block main %}
+<div class="wrapper">
+    <div class=table style="widdiv:100%">
+        <div class="row header blue">
+            <div class="cell">Type</div>
+            <div class="cell">Symbol</div>
+            <div class="cell">Quantity</div>
+            <div class="cell">Value</div>
+            <div class="cell">Total</div>
+            <div class="cell">Date</div>
+            <div class="cell">Time</div>
+            
+        </div>
+    {%for stock in stocks%}
+        <div class="row">
+            <div class="cell">{{ stock["user_id"] }}</div>  
+            <div class="cell">{{ stock["symbol"] }}</div>
+            <div class="cell">{{ stock["quantity"] }}</div>
+            <div class="cell">{{ stock["value"] }}</div>
+            <div class="cell">{{ stock["value"]*stock["quantity"] }}</div>
+            <div class="cell">{{ stock["date"] }}</div>
+            <div class="cell">{{ stock["time"]*stock["quantity"] }}</div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

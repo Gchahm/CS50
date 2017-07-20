@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted Values
+{% endblock %}
+
+{% block main %}
+<div class="wrapper">
+    {%if message!=""%}
+    {{message}}
+    {%endif%}
+    <form action="{{ url_for('indextransaction') }}" method="post">
+   <fieldset>
+    <div class=table style="widdiv:100%">
+        <div class="row header blue">
+            <div class="cell">Symbol</div>
+            <div class="cell">Name</div>
+            <div class="cell">Quantity</div>
+            <div class="cell">Value</div>
+            <div class="cell">Total</div>
+            <div class="cell">Quantity</div>
+        </div>
+    {%for stock in stocks%}
+        <div class="row">
+            <div class="cell">{{ stock["symbol"] }}</div>  
+            <div class="cell">{{ symbols[stock["symbol"]]["name"] }}</div>
+            <div class="cell">{{ stock["quantity"] }}</div>
+            <div class="cell">{{ symbols[stock["symbol"]]["price"] }}</div>
+            <div class="cell">{{ stock["value"]*stock["quantity"] }}</div>
+            <div class="cell"><input autocomplete="off" autofocus class="form-control" name="{{ stock["symbol"] }}" placeholder="quantity" type="text"/></div>
+            <div class="cell"><input name="id" type="radio" value="{{ stock["symbol"] }}"/></div>
+            
+        </div>
+    {% endfor %}
+    <div class="row">
+            <div class="cell">CASH</div>  
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell">{{ cash }}</div>
+    </div>
+    </div>
+
+    <button class="btn btn-default" name="buy" type="submit">Buy Stock</button>
+    </form>
+    </fieldset>
+
+</div>
+
+{% endblock %}

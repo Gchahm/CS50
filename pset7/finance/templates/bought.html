@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    Successfully bought {{ quantity }} stocks from {{ results["name"] }} at {{ results["price"] }} each
+{% endblock %}

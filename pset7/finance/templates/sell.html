@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted Values
+{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('sell') }}" method="post">
+    <div class="form-group">
+        <input class="form-control" name="symbol" placeholder="symbol" type="text"/>
+    </div>
+    <div class="form-group">
+        <input class="form-control" name="quantity" placeholder="quantity" type="text"/>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" type="submit">Sell</button>
+    </div>
+</form>
+
+{% endblock %}
