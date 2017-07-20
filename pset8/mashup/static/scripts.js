@@ -22,7 +22,7 @@ $(function() {
             featureType: "all",
             elementType: "labels",
             stylers: [
-                {visibility: "off"}
+                {visibility: "on"}
             ]
         },
 
@@ -31,7 +31,7 @@ $(function() {
             featureType: "road",
             elementType: "geometry",
             stylers: [
-                {visibility: "off"}
+                {visibility: "on"}
             ]
         }
 
