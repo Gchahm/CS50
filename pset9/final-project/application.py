@@ -1,8 +1,10 @@
 import os
 import re
-from flask import Flask, jsonify, render_template, request, url_for
+from flask import Flask, jsonify, json, render_template, request, url_for,redirect
 from flask_jsglue import JSGlue
+from urllib import request as req
 
+from helpers import lookup
 # configure application
 app = Flask(__name__)
 JSGlue(app)
@@ -22,4 +24,18 @@ def index():
 
 @app.route("/search")    
 def search():
-    return 0;
+    if not request.args.get("location"):
+        raise RuntimeError("missing location")
+    if not request.args.get("country"):
+        raise RuntimeError("missing country")
+    location = request.args.get("location")
+    country = request.args.get("country")
+    
+    googleMaps = "https://www.google.ie/maps/place/"+location+"+"+country+"&callback=?"
+    
+    html = req.urlopen(googleMaps)
+    
+    bytes = html.read(10).decode("windows-1252")
+    
+    d = json.dumps(bytes)
+    return d
